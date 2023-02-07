@@ -1,3 +1,4 @@
+
 <template>
   <button @click="loadData()">Load Crypto Exchange Rates</button>
   <ul>
@@ -6,6 +7,7 @@
     </li>
   </ul>
 </template>
+
 
 <script lang="ts">
 import axios from "axios";
