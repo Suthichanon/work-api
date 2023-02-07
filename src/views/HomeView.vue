@@ -1,37 +1,47 @@
 <template>
-  <button @click="LoadUser()">โหลดข้อมูลอัตราแลกเปลี่ยนเหรียญ Crypto</button>
-  <!-- <div>{{ UserData }}</div> -->    
+  <button @click="loadData()">Load Crypto Exchange Rates</button>
   <ul>
-    <li v-for="data,i in Data" :key="i">
-    {{ data.symbol }} <br> {{ data.lastPrice }}
+    <li v-for="data, i in Data" :key="i">
+      {{ data.symbol }} <br> {{ data.lastPrice }}
     </li>
   </ul>
 </template>
 
-<script setup lang="ts">
-import axios from"axios";
+<script>
+import axios from "axios";
 import { ref } from "vue";
-const Data = ref([]);
-const url = ref("https://data.binance.com/api/v3/ticker/24hr")
-function LoadUser() {
-    axios
-    .get(url.value)
-    .then((Response)=>{
-        Data.value = Response.data;
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-}
+export default {
+  setup() {
+    const Data = ref([]);
+
+    function loadData() {
+      const url = "https://data.binance.com/api/v3/ticker/24hr";
+
+      axios.get(url)
+        .then(response => {
+          Data.value = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+
+    return {
+      Data,
+      loadData
+    };
+  }
+};
 </script>
 
 <style scoped>
-ul{
+ul {
   border: 1px solid red;
   padding-left: 40px;
 }
-ul li{
-  border: 1px solid rgb(0, 0, 0);
+
+ul li {
+  border: 1px solid black;
   list-style: none;
 }
 </style>
